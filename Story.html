@@ -68,4 +68,116 @@
 </style>
 </head>
 <body>
-  <he
+  <header>
+    <div class="brand">Her Flight Path</div>
+    <div class="actions">
+      <a class="btn" href="index.html">Home</a>
+      <a class="btn" href="contact.html">Contact</a>
+      <button class="btn" id="soundToggle">🔊 Sound</button>
+    </div>
+  </header>
+
+  <main class="scene" aria-label="Flight desk with scattered keepsakes">
+    <a class="item jacket" data-target="dlg-1" title="Recruitment"></a>
+    <a class="item wings"  data-target="dlg-2" title="Training"></a>
+    <a class="item badge"  data-target="dlg-3" title="First Solo"></a>
+    <a class="item photo"  data-target="dlg-4" title="Deployment"></a>
+    <a class="item patch"  data-target="dlg-5" title="Return"></a>
+    <a class="item tags"   data-target="dlg-6" title="Epilogue"></a>
+    <div class="hint">Click an item to open a story • Press Esc to close</div>
+  </main>
+
+  <!-- Story Modals -->
+  <div id="dlg-1" class="modal" hidden>
+    <div class="panel">
+      <button class="close" data-action="close">✕</button>
+      <h2>Recruitment — The Doorway</h2>
+      <p>The jacket still smells like jet fuel and rain. She runs a thumb along the stitched name tape and feels a soft thud in her chest—the sound of a door clicking open. In a waiting room brighter than morning, she signs her name. Courage, she learns, is not loud; it’s a quiet hand steadying itself.</p>
+      <div class="nav"><button data-action="next">Next ▶︎</button></div>
+    </div>
+  </div>
+
+  <div id="dlg-2" class="modal" hidden>
+    <div class="panel">
+      <button class="close" data-action="close">✕</button>
+      <h2>Training — Learning the Sky</h2>
+      <p>Her first set of wings is light and silver. The real lessons are heavier: checklists like prayers, acronyms like new alphabets, and the calm voice of an instructor saying, “Again.” The runway looks short until she trusts the math. The sky, it turns out, is a patient teacher.</p>
+      <div class="nav"><button data-action="prev">◀︎ Prev</button><button data-action="next">Next ▶︎</button></div>
+    </div>
+  </div>
+
+  <div id="dlg-3" class="modal" hidden>
+    <div class="panel">
+      <button class="close" data-action="close">✕</button>
+      <h2>First Solo — Name, Spoken by Wind</h2>
+      <p>The patch is new, its threads still stiff. She whispers her call sign into the headset once, just to hear it echo back. On final approach, the world narrows to centerline and numbers. Tires whisper. The earth accepts her. For the first time, the silence after shutdown belongs to her too.</p>
+      <div class="nav"><button data-action="prev">◀︎ Prev</button><button data-action="next">Next ▶︎</button></div>
+    </div>
+  </div>
+
+  <div id="dlg-4" class="modal" hidden>
+    <div class="panel">
+      <button class="close" data-action="close">✕</button>
+      <h2>Deployment — The Weight of Distance</h2>
+      <p>In the photo, the horizon is a thin coin of light. Nights stack up like rations. She learns the shape of home by its absence: voices through a phone, the time zones braided like rope. The hum of the aircraft becomes a borrowed heartbeat. “Copy, roger.” The work is precise so the thoughts can wander safely.</p>
+      <div class="nav"><button data-action="prev">◀︎ Prev</button><button data-action="next">Next ▶︎</button></div>
+    </div>
+  </div>
+
+  <div id="dlg-5" class="modal" hidden>
+    <div class="panel">
+      <button class="close" data-action="close">✕</button>
+      <h2>Return — Patches and Stories</h2>
+      <p>The boots are scuffed now, the soles worn thin from miles of tarmac and hangar floors. Stories cluster in the chow hall like migrating birds: the near-misses, the perfect landings, the dumb luck. Pride hums steady—quiet as the afterglow of a mission well done.</p>
+      <div class="nav"><button data-action="prev">◀︎ Prev</button><button data-action="next">Next ▶︎</button></div>
+    </div>
+  </div>
+
+  <div id="dlg-6" class="modal" hidden>
+    <div class="panel">
+      <button class="close" data-action="close">✕</button>
+      <h2>Epilogue — What Remains</h2>
+      <p>The shorts are folded neatly, the name barely visible on the tag. She doesn’t wear them much now, but keeps them to remember early mornings before sunrise, when discipline was a promise. The sound of a distant jet still makes her look up. Tomorrow is just another flight.</p>
+      <div class="nav"><button data-action="prev">◀︎ Prev</button><button data-action="close">Close ⌂</button></div>
+    </div>
+  </div>
+
+  <footer>© 2025 Her Flight Path — A digital art project inspired by the U.S. Air Force.</footer>
+
+  <audio id="ambience" loop preload="auto">
+    <source src="audio/radio-chatter.mp3" type="audio/mpeg" />
+  </audio>
+
+  <script>
+    const order = ['dlg-1','dlg-2','dlg-3','dlg-4','dlg-5','dlg-6'];
+    let current = -1;
+
+    function openDlg(id){
+      document.querySelectorAll('.modal').forEach(m=>m.hidden=true);
+      const el=document.getElementById(id);
+      if(el){ el.hidden=false; current=order.indexOf(id); startAudio(); }
+    }
+    function closeDlg(){ document.querySelectorAll('.modal').forEach(m=>m.hidden=true); current=-1; }
+    function step(n){ if(current===-1) return; const next=Math.min(order.length-1, Math.max(0,current+n)); openDlg(order[next]); }
+
+    document.addEventListener('click', e=>{
+      const a=e.target.closest('.item');
+      if(a && a.dataset.target){ e.preventDefault(); openDlg(a.dataset.target); }
+      const b=e.target.closest('[data-action]'); if(!b) return;
+      const act=b.dataset.action; if(act==='close') closeDlg(); if(act==='next') step(1); if(act==='prev') step(-1);
+    });
+
+    window.addEventListener('keydown', e=>{
+      if(e.key==='Escape') closeDlg();
+      if(e.key==='ArrowRight') step(1);
+      if(e.key==='ArrowLeft') step(-1);
+    });
+
+    const audio=document.getElementById('ambience');
+    const toggle=document.getElementById('soundToggle');
+    let playing=false;
+    async function startAudio(){ if(playing) return; try{ await audio.play(); playing=true; toggle.textContent='🔊 Sound: On'; }catch{} }
+    toggle.addEventListener('click', ()=>{ if(!playing){ startAudio(); } else { audio.pause(); playing=false; toggle.textContent='🔇 Sound: Off'; }});
+  </script>
+</body>
+</html>
