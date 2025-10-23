@@ -33,13 +33,12 @@
     display:inline-block; margin-top:28px; padding:12px 24px;
     border:1px solid rgba(255,255,255,.18); border-radius:12px;
     text-decoration:none; background:rgba(255,255,255,.05); color:var(--ink);
-    font-weight:600; letter-spacing:.03em;
+    font-weight:600; letter-spacing:.03em; transition:background .2s ease;
   }
   .button:hover{background:rgba(255,255,255,.12);}
-  .notice{margin-top:10px; color:var(--muted); font-size:.9rem;}
-  .links{margin-top:8px}
-  .links a{color:#e8ecf5; text-decoration:none}
-  .links a:hover{text-decoration:underline}
+  .links{margin-top:8px;}
+  .links a{color:#e8ecf5; text-decoration:none;}
+  .links a:hover{text-decoration:underline;}
 </style>
 </head>
 <body>
@@ -47,11 +46,9 @@
     <h1>Hello, my name is Diana</h1>
     <p>Welcome to my page — here is a random story.</p>
     <a class="button" href="story.html">▶ Enter Story</a>
-    <p class="notice">Redirecting automatically in 3 seconds…</p>
-    <p class="links"><a href="contact.html">Contact</a></p>
+    <div class="links">
+      <a href="contact.html">Contact</a>
+    </div>
   </div>
-  <script>
-    setTimeout(()=>{ location.href='story.html'; }, 3000);
-  </script>
 </body>
 </html>
