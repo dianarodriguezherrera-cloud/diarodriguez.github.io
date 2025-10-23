@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Her Flight Path — Story</title>
+<style>
+  :root {
+    --bg: #0a1020; --ink: #e8ecf5; --muted: #a5adc0; --accent: #6fa3ff; --glow: 0 0 25px rgba(130,177,255,.25);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; font-family: 'Segoe UI', sans-serif; background: radial-gradient(circle at 50% -10%, #1d2745 0%, var(--bg) 70%); color: var(--ink);
+  }
+
+  header {
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 24px; background:rgba(10,16,32,.85); border-bottom:1px solid rgba(255,255,255,.08); position:sticky; top:0; backdrop-filter:blur(6px);
+  }
+  .brand { font-weight:700; letter-spacing:.05em; color:var(--accent); }
+  .actions { display:flex; gap:8px; }
+  .btn { border:1px solid rgba(255,255,255,.1); background:rgba(255,255,255,.05); border-radius:10px; padding:8px 14px; cursor:pointer; color:var(--ink); font-weight:500; text-decoration:none }
+  .btn:hover{ background:rgba(255,255,255,.1); }
+
+  main.scene {
+    position: relative; height: 75vh; max-width: 1000px; margin: 40px auto;
+    background: linear-gradient(180deg, #0e1833 0%, #070b1a 100%); border-radius: 24px;
+    box-shadow: var(--glow), 0 0 60px rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.06); overflow: hidden;
+  }
+  main.scene::before{
+    content:""; position:absolute; inset:0; pointer-events:none;
+    background:
+      repeating-linear-gradient(0deg, rgba(111,163,255,.08) 0 1px, transparent 1px 24px),
+      repeating-linear-gradient(90deg, rgba(111,163,255,.08) 0 1px, transparent 1px 24px);
+    opacity:.7; mask:linear-gradient(180deg, rgba(0,0,0,.2), rgba(0,0,0,.85));
+  }
+  .hint { position:absolute; bottom:16px; left:50%; transform:translateX(-50%); color:var(--muted); font-size:.9rem; }
+
+  .item {
+    position: absolute; width: 13vw; max-width:160px; min-width:100px; aspect-ratio:1; border-radius:12px;
+    background-color:#0f182e; background-size:contain; background-position:center; background-repeat:no-repeat;
+    box-shadow: 0 5px 25px rgba(0,0,0,.6); cursor:pointer; transition: transform .2s, box-shadow .2s;
+    filter: hue-rotate(205deg) saturate(1.15) contrast(1.05);
+  }
+  .item:hover { transform: translateY(-4px); box-shadow: 0 8px 30px rgba(111,163,255,0.4); }
+
+  /* Your exact image paths (folder has a space so we encode it with %20) */
+  .jacket { left: 8%;  top: 22%; background-image: url('untitled%20folder/1016U-USAF-PT-Jacket-overall-scaled-removebg-preview.png'); }
+  .wings  { left: 30%; top: 12%; background-image: url('untitled%20folder/S-16067-removebg-preview.png'); }
+  .badge  { left: 55%; top: 25%; background-image: url('untitled%20folder/afr_8074_af_flight_suit_hook_n_loop_patch_d81baf70-f993-4602-9ab1-cde15cc8a438-removebg-preview.png'); }
+  .photo  { left: 75%; top: 15%; background-image: url('untitled%20folder/FW1056_COY_1001_0-removebg-preview.png'); }
+  .patch  { left: 25%; bottom: 12%; background-image: url('untitled%20folder/eee19eff-5ed3-4197-b052-0daf8d468884_24c5db6d-2a73-47e2-9942-d62d47b91586-removebg-preview.png'); }
+  .tags   { left: 60%; bottom: 8%;  background-image: url('untitled%20folder/image-removebg-preview.png'); }
+
+  /* Modals */
+  .modal[hidden]{display:none}
+  .modal{ position:fixed; inset:0; background:rgba(5,10,25,.75); backdrop-filter:blur(6px); display:grid; place-items:center; z-index:50; }
+  .panel{ width:min(700px,90vw); background:#0e152b; border:1px solid rgba(255,255,255,.1); border-radius:18px; box-shadow:0 10px 60px rgba(0,0,0,.7), 0 0 30px rgba(111,163,255,.2); padding:32px; position:relative; color:var(--ink); }
+  .panel h2{ margin-top:0; color:var(--accent); }
+  .panel p{ line-height:1.7; color:#e2e7f5; }
+  .close{ position:absolute; right:16px; top:12px; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.15); border-radius:8px; color:var(--ink); cursor:pointer; padding:5px 10px; }
+  .close:hover{ background:rgba(255,255,255,.15); }
+  .nav{ display:flex; gap:10px; margin-top:14px; }
+  .nav button{ border:1px solid rgba(255,255,255,.15); background:rgba(255,255,255,.05); color:var(--ink); border-radius:8px; padding:8px 14px; cursor:pointer; }
+  .nav button:hover{ background:rgba(255,255,255,.15); }
+
+  footer{ text-align:center; padding:40px 10px; color:var(--muted); font-size:.9rem; }
+</style>
+</head>
+<body>
+  <he
